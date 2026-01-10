@@ -13,10 +13,8 @@ It obfuscates the shellcode which may aid in passing security systems during pen
 
 ## Installation
 
-Clone the project
-
 ```bash
-
+git clone https://github.com/Antonia634/xorencryptor.git
 ```
 
 ## Usage
