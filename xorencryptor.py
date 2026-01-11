@@ -14,8 +14,6 @@ def validate_input_file(file_input):
     :param file_input: Input file path
     '''
     path = Path(file_input) # path to the input file
-    with open(file_input, "rb") as file: # opens the file and reads bytes
-        content = file.read()
     known_signatures = [ # used to check invalid types
         b'\x89PNG',  # PNG
         b'\xFF\xD8\xFF',  # JPEG
@@ -28,13 +26,22 @@ def validate_input_file(file_input):
         b'\x1F\x8B',  # GZIP
     ]
 
-    # Checks if input isn't a file, doesn't exist or is empty
+    # Checks if input isn't a file or doesn't exist
     try:
         if not path.is_file() or not path.exists():
             raise FileNotFoundError(f"File {file_input} does not exist or is not a file.")
+    except (FileNotFoundError) as error:
+        print(f"[-] Error: {error}")
+        exit(1)
+
+    with open(file_input, "rb") as file: # opens the file and reads bytes
+        content = file.read()
+
+    # Checks if input file is empty
+    try:
         if not content:
             raise ValueError(f"File {file_input} is empty.")
-    except (FileNotFoundError, ValueError) as error:
+    except (ValueError) as error:
         print(f"[-] Error: {error}")
         exit(1)
 
@@ -53,7 +60,8 @@ def validate_input_file(file_input):
 
 def validate_key(key):
     '''
-    Validates key to make sure it's a string with over 1 characters that can be used for the encryption.
+    Validates key to make sure it's a string with over 1 characters
+    that can be used for the encryption.
     :param key: Key to encrypt with
     '''
     try:
