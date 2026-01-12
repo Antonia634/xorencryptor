@@ -11,6 +11,11 @@ It obfuscates the shellcode which may aid in passing security systems during pen
 - Accepts shellcode in both binary and text format
 - Outputs in raw, python-array or C-array
 
+## Requirements
+
+- Python 3.x
+- No external libraries required
+
 ## Installation
 
 ```bash
